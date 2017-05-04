@@ -20,12 +20,161 @@
 			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
 			document.getElementsByTagName( 'head' )[0].appendChild( link );
 		</script>
+
+		<style type="text/css">
+		.code { text-align: left; }
+		</style>
 	</head>
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+				<section>
+					<h3>Maps, Phones, and Sense of Direction</h3>
+				</section>
+
+				<section>
+					<h3>Geographic languages</h3>
+					<p>cardinal instead of relative directions</p>
+					<blockquote>
+						<p>“I left it on the southern edge of the western table.”</p>
+						<p>“look out for that big ant just north of your foot.”</p>
+					</blockquote>
+				</section>
+
+				<section>
+					<h3>Taxi drivers' brains: two studies</h3>
+					<ul>
+						<li>London cab's <em>knowledge</em> exam ("brains grow")</li>
+						<em>vs</em>
+						<li>Nav system drivers</li>
+					</ul>
+					<!-- <img src='http://ichef.bbci.co.uk/wwfeatures/wm/live/1280_720/images/live/p0/2c/7y/p02c7yf0.jpg'/> -->
+				</section>
+
+				<section>
+					<h3>"Mental Maps"</h3>
+					<ul>
+						<li>representation of locations in space</li>
+						<li>aid a "good sense of direction"</li>
+						<li>discouraged by a relative or nav based way of thinking</li>
+					</ul>
+					
+				</section>
+
+				<section>
+				<h3>Idea...</h3>
+				<ul>
+					<li class="fragment">phone maps &#8594; relative direction sense</li>
+					<li class="fragment">want: phone app &#8594; helps build mental map</li>
+					<li class="fragment">maybe by: always visualizing a few places,</li>
+					<li class="fragment">and fitting in your location and destination.</li>
+				</ul>
+
+				<p class="fragment">Try: place virtual markers, see with your phone.</p>
+
+				</section>
+
+				<section>
+				Three.js: JS library for WebGL
+				<ul>
+					<li>X,Y,Z axes</li>
+					<li>Place objects at positions</li>
+					<li>Camera: perspective or othographic</li>
+					<li>Camera has a position and a point it's looking at</li>
+				</ul>
+				</section>
+
+				<section>
+					<img src='https://raw.githubusercontent.com/bebebebebe/presentation-orientation/gh-pages/images/cube.png'/>
+				</section>
+
+				<section>
+					<h3>Representing locations</h3>
+					Get longitude, latitude for some points...
+					<img width="40%" src='https://raw.githubusercontent.com/bebebebebe/presentation-orientation/gh-pages/images/map.png' />
+				</section>
+
+				<section>
+				<p>...use a Mercator projection to represent them as points on a plane</p>
+				<img width='70%' src='https://raw.githubusercontent.com/bebebebebe/presentation-orientation/gh-pages/images/mercator.png' />
+				<code>
+					Proj.coordsMap(lat, lng) &#8594; <br/>
+<!-- 					  var coordsOrigin = this.coordsMercator(this.originLat, this.originLng);
+					  var coords = this.coordsMercator(lat, lng);
+
+					  var east = coords.east - coordsOrigin.east;
+					  var north = coordsOrigin.north - coords.north; -->
+
+					{east: east, north: north}
+				</code>
+				</section>
+
+				<section>
+					<p>...use the XZ plane in Three.js to place markers at these points</p>
+					<img width='50%' src='https://raw.githubusercontent.com/bebebebebe/presentation-orientation/gh-pages/images/markersabove.png' />
+				</section>
+
+
+				<section>
+					<p>...same points from the ground</p>
+					<img width='50%' src='https://raw.githubusercontent.com/bebebebebe/presentation-orientation/gh-pages/images/markersside.png' />
+				</section>
+
+				<section>
+					<h3>Use phone + GPS to determine Camera position</h3>
+					<ul>
+					<li class='fragment'>
+						<code>window.navigator.geolocation
+							.getCurrentPosition &#8594; (lat, lng)
+						</code>
+					</li>
+					<li class='fragment'>
+						<code>Proj.coordsMap(lat, lng) &#8594; (x,z)</code>
+					</li>
+					<li class='fragment'>
+						<code>
+							camera.position.set(...x,z...)
+						</code>
+					</li>
+					</ul>
+				</section>
+
+				<section>
+					<h3>Use phone compass to determine Camera direction</h3>
+					<ul>
+					<li class='fragment'>listen to <code>deviceorientation</code></li>
+					<!-- alpha... -->
+					<li class='fragment'>degrees north: <br/>
+					<code>e.webkitCompassHeading || e.alpha</code></li> <!-- trig -->
+					<li class='fragment'><code>degrees + trig &#8594; vector</code></li>
+					<li class='fragment'><code>camera.lookAt(vector)</code></li>
+					 <!-- camera look at -->
+					</ul>
+				</section>
+
+				<section>
+					<p>A marker:</p>
+					<img width='30%' src='https://raw.githubusercontent.com/bebebebebe/presentation-orientation/gh-pages/images/marker.png' />
+				</section>
+
+				<section>
+					<p>The same marker, you're further away:</p>
+					<img width='30%' src='https://raw.githubusercontent.com/bebebebebe/presentation-orientation/gh-pages/images/markerfar.png' />
+				</section>
+
+				<section>
+					<p>Hold up your phone to see where things are</p>
+					<img width='30%' src='https://raw.githubusercontent.com/bebebebebe/presentation-orientation/gh-pages/images/phone.png' />
+				</section>
+
+
+
+				<section>
+					<p>Thanks!<p> 
+					<p>project github: https://github.com/bebebebebe/Sense-of-Directions</p>
+					<p>(readme links to sources/references in slides)</p>
+				</section>
+
 			</div>
 		</div>
 
