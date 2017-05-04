@@ -22,7 +22,6 @@ https://www.scientificamerican.com/article/london-taxi-memory/
 
 - On finding your way via turn by turn navigation vs having "mental maps", and brain scans.
 http://www.bbc.com/future/story/20141119-is-tech-creating-stupid-drivers
-The brain picture in the slides comes from this.
 
 - Mercator projection
 https://en.wikipedia.org/wiki/Mercator_projection
